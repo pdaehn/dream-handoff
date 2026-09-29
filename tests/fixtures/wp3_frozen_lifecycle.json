@@ -1,0 +1,39 @@
+{
+  "phase0_seed_0_n10": [4, 9, 3, 0, 3, 9, 7, 3],
+  "selection": {
+    "baseline_distances": [0.4, 0.1, 0.7],
+    "baseline_selected": 1,
+    "hysteresis_tau": 0.03,
+    "stay": {"incumbent_distance": 0.12, "challenger_distance": 0.1, "selected": 0},
+    "switch": {"incumbent_distance": 0.14, "challenger_distance": 0.1, "selected": 1},
+    "strict_boundary_switch": false
+  },
+  "request_schedule": {
+    "bank_origin": 0,
+    "bank_horizon": 35,
+    "refill_threshold": 15,
+    "request_action_count": 20,
+    "request_phase": 20
+  },
+  "activation": {
+    "generated_horizon": 50,
+    "request_action_count": 20,
+    "activation_action_count": 24,
+    "actual_elapsed": 4,
+    "max_bank_age": 35,
+    "usable_horizon": 35,
+    "activation_origin": 24
+  },
+  "static_rtc": {
+    "request_phase": 20,
+    "guidance_horizon": 15,
+    "prefix_slice": [20, 35],
+    "predicted_delay": 7,
+    "execution_horizon": 15,
+    "candidate_mapping": "same_index"
+  },
+  "failure": {
+    "too_late": {"generated_horizon": 50, "actual_elapsed": 50},
+    "expired_phase": 35
+  }
+}

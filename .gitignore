@@ -1,0 +1,20 @@
+# Python environments
+.venv/
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build outputs
+build/
+dist/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store

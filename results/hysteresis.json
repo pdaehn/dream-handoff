@@ -1,0 +1,323 @@
+{
+  "absolute_hysteresis": {
+    "dwell_ticks": {
+      "mean": 9.392337164750957,
+      "median": 7.0,
+      "p90": 22.0,
+      "runs": 1305
+    },
+    "mean_matching_cost": 1.9775620436049175,
+    "mean_matching_distance_penalty": 0.004998048303324843,
+    "operational_switch_count": 846,
+    "operational_switch_rate": 0.0745374449339207,
+    "rapid_successive_switch_within_3_rows_count": 257,
+    "reversal_aba_count": 33,
+    "switch_count": 851,
+    "switch_rate": 0.07210031347962383,
+    "top1_match_rate": 0.7832754384478522
+  },
+  "analysis": "Selector Stabilization with Hysteresis",
+  "evidence": {
+    "artifact": "prospective physical evaluation",
+    "capture_file": "capture.npz",
+    "capture_sha256": "c2c709ca5fbbaa673d8c31d71683fb5b63756596083e2b5f3d00f61975170bba",
+    "collection_provenance": "configs/prospective_evaluation_provenance.json",
+    "release_revision": "4ff19fae23719daa0899c04166cb4d445fde0261",
+    "repo_id": "pdaehn/dreamhandoff-so101-prospective-evaluation",
+    "rows": 12257
+  },
+  "factual_selection_match_rate": 1.0,
+  "memoryless_nearest": {
+    "dwell_ticks": {
+      "mean": 5.025420254202542,
+      "median": 3.0,
+      "p90": 12.0,
+      "runs": 2439
+    },
+    "mean_matching_cost": 1.9725639953015925,
+    "mean_matching_distance_penalty": 0.0,
+    "operational_switch_count": 1980,
+    "operational_switch_rate": 0.17444933920704847,
+    "rapid_successive_switch_within_3_rows_count": 1050,
+    "reversal_aba_count": 163,
+    "switch_count": 1985,
+    "switch_rate": 0.1681775819706854,
+    "top1_match_rate": 1.0
+  },
+  "metric_definitions": {
+    "rapid_successive_switch_within_3_rows_count": "switch events occurring within 3 control rows of the preceding switch",
+    "reversal_aba_count": "A-to-B-to-A candidate patterns formed by switches on consecutive control rows"
+  },
+  "offline_calibration": {
+    "calibration_memoryless": {
+      "proxy_top1_agreement": 0.20019134178426215,
+      "rapid_switch_within_1_rate": 0.058009071377417044,
+      "rapid_switch_within_2_rate": 0.09787538792074481,
+      "rapid_switch_within_3_rate": 0.12508952017187874,
+      "recorded_continuation_regret": 0.8546320650600925,
+      "reversal_aba_rate": 0.00883265695870136,
+      "rows": 4189,
+      "switch_count": 989,
+      "switch_rate": 0.23609453330150393,
+      "valid_proxy_rows": 4181
+    },
+    "calibration_selected_point": {
+      "pareto": true,
+      "proxy_top1_agreement": 0.18273140397034202,
+      "rapid_switch_within_1_rate": 0.00883265695870136,
+      "rapid_switch_within_2_rate": 0.022917164000954882,
+      "rapid_switch_within_3_rate": 0.039866316543327764,
+      "recorded_continuation_regret": 0.8949339451244703,
+      "reversal_aba_rate": 0.0021484841250895203,
+      "rows": 4189,
+      "switch_count": 566,
+      "switch_rate": 0.1351157794222965,
+      "threshold": 0.06851652264595032,
+      "valid_proxy_rows": 4181
+    },
+    "held_out_evaluation": {
+      "frozen_absolute_hysteresis": {
+        "proxy_top1_agreement": 0.15456796559364003,
+        "rapid_switch_within_1_rate": 0.008843802835219143,
+        "rapid_switch_within_2_rate": 0.021199115619716477,
+        "rapid_switch_within_3_rate": 0.0357653791130186,
+        "recorded_continuation_regret": 1.0242974517939067,
+        "reversal_aba_rate": 0.0011705033164260631,
+        "rows": 7689,
+        "switch_count": 991,
+        "switch_rate": 0.1288854207309143,
+        "valid_proxy_rows": 7673
+      },
+      "memoryless_nearest": {
+        "proxy_top1_agreement": 0.17385637951257657,
+        "rapid_switch_within_1_rate": 0.06372740278319677,
+        "rapid_switch_within_2_rate": 0.10001300559240474,
+        "rapid_switch_within_3_rate": 0.1260241904018728,
+        "recorded_continuation_regret": 0.9741071600767495,
+        "reversal_aba_rate": 0.013525816100923398,
+        "rows": 7689,
+        "switch_count": 1824,
+        "switch_rate": 0.2372220054623488,
+        "valid_proxy_rows": 7673
+      },
+      "paired_uncertainty": {
+        "bank_clusters": 228,
+        "confidence_interval": "2.5/97.5 percentile",
+        "delta_direction": "frozen absolute hysteresis minus memoryless nearest",
+        "method": "paired bank-clustered bootstrap",
+        "metrics": {
+          "proxy_top1_agreement": {
+            "bootstrap_mean_delta": -0.019338237866464596,
+            "ci95_high": -0.0111379631285275,
+            "ci95_low": -0.027602835822748657,
+            "observed_delta": -0.019288413918936542
+          },
+          "recorded_continuation_regret": {
+            "bootstrap_mean_delta": 0.05012974181340478,
+            "ci95_high": 0.07190693670297318,
+            "ci95_low": 0.029672905379086362,
+            "observed_delta": 0.050190291717157276
+          },
+          "reversal_aba_rate": {
+            "bootstrap_mean_delta": -0.012411407774772548,
+            "ci95_high": -0.010091684534898709,
+            "ci95_low": -0.014867076622706935,
+            "observed_delta": -0.012355312784497335
+          },
+          "switch_rate": {
+            "bootstrap_mean_delta": -0.10861451126894456,
+            "ci95_high": -0.0992877924558332,
+            "ci95_low": -0.11816014670117211,
+            "observed_delta": -0.10833658473143451
+          }
+        },
+        "resamples": 2000,
+        "seed": 0,
+        "unit": "(episode, bank_origin)"
+      }
+    },
+    "metric_distinction": "Offline calibration uses recorded-continuation regret; prospective physical replay uses matching-distance penalty.",
+    "moderate_rule": {
+      "maximum_mean_regret": 0.8973636683130971,
+      "maximum_relative_regret_increase": 0.05,
+      "objective": "lowest switch rate among Pareto-efficient eligible points"
+    },
+    "pareto_curve": [
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.20019134178426215,
+        "rapid_switch_within_1_rate": 0.058009071377417044,
+        "rapid_switch_within_2_rate": 0.09787538792074481,
+        "rapid_switch_within_3_rate": 0.12508952017187874,
+        "recorded_continuation_regret": 0.8546320650600925,
+        "reversal_aba_rate": 0.00883265695870136,
+        "rows": 4189,
+        "switch_count": 989,
+        "switch_rate": 0.23609453330150393,
+        "threshold": 0.0,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.1934943793350873,
+        "rapid_switch_within_1_rate": 0.026736691334447362,
+        "rapid_switch_within_2_rate": 0.05681546908570064,
+        "rapid_switch_within_3_rate": 0.083552160420148,
+        "recorded_continuation_regret": 0.8553327939151663,
+        "reversal_aba_rate": 0.00644545237526856,
+        "rows": 4189,
+        "switch_count": 818,
+        "switch_rate": 0.19527333492480306,
+        "threshold": 0.00994759874466138,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.19469026548672566,
+        "rapid_switch_within_1_rate": 0.01742659345905944,
+        "rapid_switch_within_2_rate": 0.04249224158510384,
+        "rapid_switch_within_3_rate": 0.06445452375268561,
+        "recorded_continuation_regret": 0.8580765266704719,
+        "reversal_aba_rate": 0.0031033659584626403,
+        "rows": 4189,
+        "switch_count": 728,
+        "switch_rate": 0.17378849367390786,
+        "threshold": 0.02273736855922601,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.19373355656541497,
+        "rapid_switch_within_1_rate": 0.01742659345905944,
+        "rapid_switch_within_2_rate": 0.042014800668417285,
+        "rapid_switch_within_3_rate": 0.06373836237765576,
+        "recorded_continuation_regret": 0.859182603149373,
+        "reversal_aba_rate": 0.0031033659584626403,
+        "rows": 4189,
+        "switch_count": 727,
+        "switch_rate": 0.17354977321556458,
+        "threshold": 0.023447911326701824,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.19277684764410427,
+        "rapid_switch_within_1_rate": 0.0155168297923132,
+        "rapid_switch_within_2_rate": 0.03843399379326808,
+        "rapid_switch_within_3_rate": 0.061112437335879684,
+        "recorded_continuation_regret": 0.8599026335309322,
+        "reversal_aba_rate": 0.0026259250417760803,
+        "rows": 4189,
+        "switch_count": 710,
+        "switch_rate": 0.1694915254237288,
+        "threshold": 0.02557953962912926,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.19205931595312126,
+        "rapid_switch_within_1_rate": 0.015755550250656482,
+        "rapid_switch_within_2_rate": 0.037479111959894965,
+        "rapid_switch_within_3_rate": 0.06063499641919313,
+        "recorded_continuation_regret": 0.8620281432040483,
+        "reversal_aba_rate": 0.0028646455001193603,
+        "rows": 4189,
+        "switch_count": 703,
+        "switch_rate": 0.16782048221532586,
+        "threshold": 0.026290082396605075,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.19205931595312126,
+        "rapid_switch_within_1_rate": 0.015755550250656482,
+        "rapid_switch_within_2_rate": 0.0370016710432084,
+        "rapid_switch_within_3_rate": 0.060157555502506566,
+        "recorded_continuation_regret": 0.8625662834186413,
+        "reversal_aba_rate": 0.0028646455001193603,
+        "rows": 4189,
+        "switch_count": 697,
+        "switch_rate": 0.16638815946526617,
+        "threshold": 0.027000625164080888,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.18273140397034202,
+        "rapid_switch_within_1_rate": 0.00883265695870136,
+        "rapid_switch_within_2_rate": 0.022917164000954882,
+        "rapid_switch_within_3_rate": 0.039866316543327764,
+        "recorded_continuation_regret": 0.8949339451244703,
+        "reversal_aba_rate": 0.0021484841250895203,
+        "rows": 4189,
+        "switch_count": 566,
+        "switch_rate": 0.1351157794222965,
+        "threshold": 0.06851652264595032,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.17651279598182254,
+        "rapid_switch_within_1_rate": 0.00501312962520888,
+        "rapid_switch_within_2_rate": 0.011458582000477441,
+        "rapid_switch_within_3_rate": 0.02005251850083552,
+        "recorded_continuation_regret": 0.9170492288456725,
+        "reversal_aba_rate": 0.0014323227500596801,
+        "rows": 4189,
+        "switch_count": 425,
+        "switch_rate": 0.101456194795894,
+        "threshold": 0.12775003910064697,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.1671848839990433,
+        "rapid_switch_within_1_rate": 0.0016710432084029601,
+        "rapid_switch_within_2_rate": 0.004296968250179041,
+        "rapid_switch_within_3_rate": 0.00811649558367152,
+        "recorded_continuation_regret": 0.9516006687046152,
+        "reversal_aba_rate": 0.00047744091668656003,
+        "rows": 4189,
+        "switch_count": 296,
+        "switch_rate": 0.07066125566961089,
+        "threshold": 0.22482683658599795,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.1470939966515188,
+        "rapid_switch_within_1_rate": 0.0007161613750298401,
+        "rapid_switch_within_2_rate": 0.0021484841250895203,
+        "rapid_switch_within_3_rate": 0.00453568870852232,
+        "recorded_continuation_regret": 1.0047616219725857,
+        "reversal_aba_rate": 0.0,
+        "rows": 4189,
+        "switch_count": 212,
+        "switch_rate": 0.05060873716877536,
+        "threshold": 0.3477811157703412,
+        "valid_proxy_rows": 4181
+      },
+      {
+        "pareto": true,
+        "proxy_top1_agreement": 0.10930399425974648,
+        "rapid_switch_within_1_rate": 0.0,
+        "rapid_switch_within_2_rate": 0.00023872045834328001,
+        "rapid_switch_within_3_rate": 0.00047744091668656003,
+        "recorded_continuation_regret": 1.1794979555331415,
+        "reversal_aba_rate": 0.0,
+        "rows": 4189,
+        "switch_count": 94,
+        "switch_rate": 0.022439723084268323,
+        "threshold": 0.6336570048332195,
+        "valid_proxy_rows": 4181
+      }
+    ],
+    "phase0_rng": "torch",
+    "publication_result_sha256": "65a37d3dd443ed927ba2764c4b44d508d244fa86feb4198366a148327ece7464",
+    "result": "results/hysteresis_calibration.json",
+    "selected_tau": 0.06851652264595032
+  },
+  "rule": "switch iff distance(incumbent) - distance(nearest) > tau",
+  "schema_version": 3,
+  "tau": 0.06851652264595032
+}

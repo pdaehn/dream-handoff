@@ -1,0 +1,291 @@
+{
+  "analysis": "Activation-Time Grounding",
+  "bootstrap": {
+    "resamples": 5000,
+    "seed": 0,
+    "unit": "physical episode cluster"
+  },
+  "event_inclusion": {
+    "capture_requests_total": 475,
+    "excluded_activation_phase_field_mismatch": 0,
+    "excluded_activation_row_not_phase_zero": 0,
+    "excluded_command_provenance_mismatch": 0,
+    "excluded_discarded_rerecord_requests": 11,
+    "excluded_incomplete_control_coverage": 0,
+    "excluded_initial_inline_build": 24,
+    "excluded_invalid_candidate_bank": 0,
+    "excluded_invalid_gt_prefix": 0,
+    "excluded_missing_activation_state": 0,
+    "excluded_missing_new_candidate_bank": 0,
+    "excluded_missing_old_candidate_bank": 0,
+    "excluded_missing_request_origin_state": 0,
+    "excluded_nonpositive_window": 0,
+    "excluded_old_bank_changed_in_window": 0,
+    "excluded_padded_or_nonfinite_bank_slice": 0,
+    "excluded_phase_horizon_overflow": 0,
+    "excluded_selector_provenance_mismatch": 0,
+    "excluded_selector_switch_flag_mismatch": 0,
+    "excluded_stale_result": 10,
+    "excluded_total": 34,
+    "excluded_unactivated_request": 0,
+    "included_events": 430,
+    "requests_total": 464
+  },
+  "evidence": {
+    "artifact": "prospective physical evaluation",
+    "capture_file": "capture.npz",
+    "capture_sha256": "c2c709ca5fbbaa673d8c31d71683fb5b63756596083e2b5f3d00f61975170bba",
+    "collection_provenance": "configs/prospective_evaluation_provenance.json",
+    "release_revision": "4ff19fae23719daa0899c04166cb4d445fde0261",
+    "repo_id": "pdaehn/dreamhandoff-so101-prospective-evaluation"
+  },
+  "interpretation": "Factual path mismatch grows with switching. Exact factual action history does not eliminate the activation-posterior grounding gap, and whether its endpoint error is lower or higher than a static counterfactual depends on comparator selection.",
+  "metric_definitions": {
+    "action_path_nearest": "choose argmin_j sqrt(mean_time(sum_action_dim((static[j]-factual)^2))) before comparing imagined endpoint errors",
+    "advantage_sign": "selected_static_error - exact_history_error; positive means the exact-history endpoint has lower activation-target error",
+    "exact_history_wm_error": "exact executed-history imagined endpoint to activation posterior feature",
+    "interval": "[request_action_count, activation_action_count)",
+    "path_error": "min_j sqrt(mean_time(sum_action_dim((static[j]-factual)^2)))",
+    "target_selected_best_of_ten": "among ten static imagined endpoints, choose the one with minimum activation-posterior target error"
+  },
+  "schema_version": 3,
+  "switch_strata": {
+    "0": {
+      "action_path_nearest": {
+        "static_minus_exact_history_error": {
+          "count": 255,
+          "mean": 3.114889549953445e-08,
+          "mean_clustered_ci95_high": 5.98341333799256e-08,
+          "mean_clustered_ci95_low": 1.8746023998925485e-09,
+          "median": 0.0,
+          "p25": 0.0,
+          "p75": 1.1920928955078125e-07,
+          "p90": 2.384185791015625e-07
+        },
+        "static_wm_error": {
+          "count": 255,
+          "mean": 1.6816968150900615,
+          "median": 1.608629822731018,
+          "p25": 1.4012116193771362,
+          "p75": 2.233581781387329,
+          "p90": 2.9371357440948485
+        }
+      },
+      "events": 255,
+      "exact_history_wm_error": {
+        "count": 255,
+        "mean": 1.681696783941166,
+        "median": 1.608629822731018,
+        "p25": 1.40121191740036,
+        "p75": 2.2335821390151978,
+        "p90": 2.937135601043701
+      },
+      "factual_path_mismatch": {
+        "count": 255,
+        "mean": 0.0,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.0,
+        "p90": 0.0
+      },
+      "target_selected_best_of_ten": {
+        "static_minus_exact_history_error": {
+          "count": 255,
+          "mean": -0.024302489205693327,
+          "mean_clustered_ci95_high": -0.01420469799377952,
+          "mean_clustered_ci95_low": -0.03672801388212655,
+          "median": 0.0,
+          "p25": -0.003721952438354492,
+          "p75": 0.0,
+          "p90": 2.384185791015625e-07
+        },
+        "static_wm_error": {
+          "count": 255,
+          "mean": 1.6573942947354727,
+          "median": 1.5843944549560547,
+          "p25": 1.0893925428390503,
+          "p75": 2.215431571006775,
+          "p90": 2.901723527908325
+        }
+      }
+    },
+    "1": {
+      "action_path_nearest": {
+        "static_minus_exact_history_error": {
+          "count": 119,
+          "mean": 0.037985723183936435,
+          "mean_clustered_ci95_high": 0.06511506713151999,
+          "mean_clustered_ci95_low": 0.0154368087628513,
+          "median": 0.0026688575744628906,
+          "p25": -0.00016736984252929688,
+          "p75": 0.025754690170288086,
+          "p90": 0.07914394140243533
+        },
+        "static_wm_error": {
+          "count": 119,
+          "mean": 1.9525531503457982,
+          "median": 1.8586121797561646,
+          "p25": 1.4625067710876465,
+          "p75": 2.5311338901519775,
+          "p90": 3.0987218856811523
+        }
+      },
+      "events": 119,
+      "exact_history_wm_error": {
+        "count": 119,
+        "mean": 1.9145674271618618,
+        "median": 1.8436543941497803,
+        "p25": 1.4583354592323303,
+        "p75": 2.504790782928467,
+        "p90": 3.0903885841369627
+      },
+      "factual_path_mismatch": {
+        "count": 119,
+        "mean": 0.7638355563180237,
+        "median": 0.632911332086375,
+        "p25": 0.39385522497536424,
+        "p75": 1.0260925842185231,
+        "p90": 1.3778704163724012
+      },
+      "target_selected_best_of_ten": {
+        "static_minus_exact_history_error": {
+          "count": 119,
+          "mean": -0.015066108032434928,
+          "mean_clustered_ci95_high": 0.007037040482686822,
+          "mean_clustered_ci95_low": -0.0366843865874324,
+          "median": -0.0045549869537353516,
+          "p25": -0.04288184642791748,
+          "p75": 0.004362940788269043,
+          "p90": 0.037072873115539556
+        },
+        "static_wm_error": {
+          "count": 119,
+          "mean": 1.899501319129427,
+          "median": 1.759414553642273,
+          "p25": 1.459104835987091,
+          "p75": 2.484937906265259,
+          "p90": 3.0620498180389406
+        }
+      }
+    },
+    ">=2": {
+      "action_path_nearest": {
+        "static_minus_exact_history_error": {
+          "count": 56,
+          "mean": 0.05576570438487189,
+          "mean_clustered_ci95_high": 0.08848807736679357,
+          "mean_clustered_ci95_low": 0.023745312920228683,
+          "median": 0.02432262897491455,
+          "p25": -0.002627134323120117,
+          "p75": 0.09833469986915588,
+          "p90": 0.183243989944458
+        },
+        "static_wm_error": {
+          "count": 56,
+          "mean": 2.1203685786042894,
+          "median": 2.0896527767181396,
+          "p25": 1.6296224892139435,
+          "p75": 2.8405133485794067,
+          "p90": 3.092879891395569
+        }
+      },
+      "events": 56,
+      "exact_history_wm_error": {
+        "count": 56,
+        "mean": 2.0646028742194176,
+        "median": 2.074450969696045,
+        "p25": 1.5312637090682983,
+        "p75": 2.6616464853286743,
+        "p90": 2.9700217247009277
+      },
+      "factual_path_mismatch": {
+        "count": 56,
+        "mean": 1.1566828686880617,
+        "median": 0.9762042612880124,
+        "p25": 0.7952923360524997,
+        "p75": 1.246472314905487,
+        "p90": 1.837550258669315
+      },
+      "target_selected_best_of_ten": {
+        "static_minus_exact_history_error": {
+          "count": 56,
+          "mean": -0.026754059429679598,
+          "mean_clustered_ci95_high": 0.0045867904754621535,
+          "mean_clustered_ci95_low": -0.05660601130521466,
+          "median": -0.006842911243438721,
+          "p25": -0.06368428468704224,
+          "p75": 0.01747223734855652,
+          "p90": 0.09179222583770752
+        },
+        "static_wm_error": {
+          "count": 56,
+          "mean": 2.037848814789738,
+          "median": 2.0456702709198,
+          "p25": 1.5531564950942993,
+          "p75": 2.593364179134369,
+          "p90": 2.9248489141464233
+        }
+      }
+    },
+    "all": {
+      "action_path_nearest": {
+        "static_minus_exact_history_error": {
+          "count": 430,
+          "mean": 0.01777485685444096,
+          "mean_clustered_ci95_high": 0.028477375217180956,
+          "mean_clustered_ci95_low": 0.00900818922369885,
+          "median": 0.0,
+          "p25": -1.1175870895385742e-08,
+          "p75": 0.0003368854522705078,
+          "p90": 0.04266238212585453
+        },
+        "static_wm_error": {
+          "count": 430,
+          "mean": 1.8137840770719904,
+          "median": 1.7299907803535461,
+          "p25": 1.4359703958034515,
+          "p75": 2.467121422290802,
+          "p90": 3.0144835948944095
+        }
+      },
+      "events": 430,
+      "exact_history_wm_error": {
+        "count": 430,
+        "mean": 1.7960092202175495,
+        "median": 1.7334215641021729,
+        "p25": 1.4320815801620483,
+        "p75": 2.444200277328491,
+        "p90": 2.981778216362
+      },
+      "factual_path_mismatch": {
+        "count": 430,
+        "mean": 0.36202481825203786,
+        "median": 0.0,
+        "p25": 0.0,
+        "p75": 0.636117600717293,
+        "p90": 1.1456301828078825
+      },
+      "target_selected_best_of_ten": {
+        "static_minus_exact_history_error": {
+          "count": 430,
+          "mean": -0.022065648677613053,
+          "mean_clustered_ci95_high": -0.010955075062809919,
+          "mean_clustered_ci95_low": -0.034187440859717894,
+          "median": -8.940696716308594e-08,
+          "p25": -0.018611252307891846,
+          "p75": 1.1920928955078125e-07,
+          "p90": 0.006880569458007823
+        },
+        "static_wm_error": {
+          "count": 430,
+          "mean": 1.7739435715399363,
+          "median": 1.7007502317428589,
+          "p25": 1.4320816099643707,
+          "p75": 2.424528658390045,
+          "p90": 2.9309179067611697
+        }
+      }
+    }
+  },
+  "zero_switch_sanity": "For a zero-switch event, the factual exact-history path is one of the static candidate continuations. Target selection takes the minimum target error over all static candidates, so its error is structurally no greater than the factual candidate's error apart from numerical effects. A negative target-selected difference in this stratum is not evidence that exact history is harmful."
+}

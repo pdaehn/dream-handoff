@@ -1,0 +1,459 @@
+{
+  "analysis": "absolute-hysteresis stability-reactivity calibration",
+  "artifacts": {
+    "dataset": {
+      "external_bundle_path": "dataset/dreamhandoff-so101-rectangle-on-peg",
+      "repo_id": "pdaehn/dreamhandoff-so101-rectangle-on-peg",
+      "revision": "70d08de50664a8c973375484c56ca553815719e5",
+      "split_manifest": "configs/data/episode_split.json",
+      "split_sha256": "e7d93ce2f0c5f7ae60f1dfcdfb2cbce68ff194e1d559e90145f61b97795f6f5a"
+    },
+    "r2": {
+      "artifact_id": "dreamhandoff-r2-rectangle-dynamics",
+      "checkpoint_sha256": "5260b7c5df88929e21bd60c8686fe7b9dc43db7b2c6238cf49524b42a33ac9fc",
+      "external_bundle_path": "r2/dreamhandoff-r2-rectangle-dynamics/checkpoints/latest.pt",
+      "repo_id": "pdaehn/dreamhandoff-r2-rectangle-dynamics",
+      "revision": "b3510497b0ff135220ea92468d2efbd5908e4d41"
+    },
+    "smolvla": {
+      "external_bundle_path": "policy/dreamhandoff-smolvla-rectangle-on-peg",
+      "model_safetensors_sha256": "668cbfa273b30bd023ebcdc246e5fd0d533633bdf0d0d3c6ccd2891aef5dd64c",
+      "repo_id": "pdaehn/dreamhandoff-smolvla-rectangle-on-peg",
+      "revision": "7e3d6e4c8ec1d43673b0ca96035e8995ed179601"
+    }
+  },
+  "bootstrap": {
+    "held_out_bank_clusters": 228,
+    "interval": "2.5/97.5 percentile",
+    "method": "paired bank-clustered bootstrap",
+    "paired": true,
+    "resamples": 2000,
+    "seed": 0,
+    "unit": "(episode, bank_origin)"
+  },
+  "calibration_procedure": {
+    "moderate_rule": "lowest-switch-rate Pareto point with mean recorded-continuation regret no more than 5% above the memoryless baseline",
+    "pareto_definition": "non-dominated simultaneous minimization of calibration switch rate and mean recorded-continuation regret",
+    "sweep_construction": "40-point linear grid from 0 through the calibration tau=0 advantage q90, plus q95/q97.5/q99/q99.5/q99.9"
+  },
+  "candidate_generation": {
+    "bank_origins": "range(0, episode_length, 35)",
+    "candidate_count": 10,
+    "legal_bank_horizon": 35,
+    "matching_representation": "R2 concat: flattened stochastic state then deter",
+    "observation_state": "recurrent posterior reset once per episode",
+    "policy_horizon": 50,
+    "policy_noise": "one rollout-wide CUDA torch.Generator seeded 0; one [10,50,max_action_dim] float32 normal draw per bank in sorted episode/origin order"
+  },
+  "final_configuration": {
+    "bank_refill_threshold": 15,
+    "calibration_source": "runtime_calibration",
+    "guidance_horizon": 15,
+    "max_bank_age": 35,
+    "num_candidates": 10,
+    "phase0_rng": "torch",
+    "phase0_seed": 0,
+    "selector": "absolute_hysteresis",
+    "tau": 0.06851652264595032
+  },
+  "matrix": {
+    "action_names": [
+      "shoulder_pan.pos",
+      "shoulder_lift.pos",
+      "elbow_flex.pos",
+      "wrist_flex.pos",
+      "wrist_roll.pos",
+      "gripper.pos"
+    ],
+    "banks": 351,
+    "episodes": 24,
+    "matching_feature_width": 2560,
+    "memoryless_proxy_top1_agreement": 0.1825544120128227,
+    "memoryless_recorded_continuation_regret": 0.932384511055835,
+    "policy_chunk_horizon": 50,
+    "rows": 11878,
+    "valid_proxy_rows": 11854
+  },
+  "proxy": {
+    "action_order": [
+      "shoulder_pan.pos",
+      "shoulder_lift.pos",
+      "elbow_flex.pos",
+      "wrist_flex.pos",
+      "wrist_roll.pos",
+      "gripper.pos"
+    ],
+    "definition": "L2 distance between candidate control-space action at phase p and recorded future observation.state at bank_origin + p + lag",
+    "lag": 1,
+    "limitation": "Agreement with the recorded continuation does not estimate what would have physically happened had a counterfactual candidate been executed.",
+    "name": "recorded-continuation proxy"
+  },
+  "runtime_calibration": {
+    "calibration": {
+      "memoryless_nearest": {
+        "proxy_top1_agreement": 0.20019134178426215,
+        "rapid_switch_within_1_rate": 0.058009071377417044,
+        "rapid_switch_within_2_rate": 0.09787538792074481,
+        "rapid_switch_within_3_rate": 0.12508952017187874,
+        "recorded_continuation_regret": 0.8546320650600925,
+        "reversal_aba_rate": 0.00883265695870136,
+        "rows": 4189,
+        "switch_count": 989,
+        "switch_rate": 0.23609453330150393,
+        "valid_proxy_rows": 4181
+      },
+      "selected_point": {
+        "pareto": true,
+        "proxy_top1_agreement": 0.18273140397034202,
+        "rapid_switch_within_1_rate": 0.00883265695870136,
+        "rapid_switch_within_2_rate": 0.022917164000954882,
+        "rapid_switch_within_3_rate": 0.039866316543327764,
+        "recorded_continuation_regret": 0.8949339451244703,
+        "reversal_aba_rate": 0.0021484841250895203,
+        "rows": 4189,
+        "switch_count": 566,
+        "switch_rate": 0.1351157794222965,
+        "threshold": 0.06851652264595032,
+        "valid_proxy_rows": 4181
+      }
+    },
+    "held_out_evaluation": {
+      "frozen_absolute_hysteresis": {
+        "proxy_top1_agreement": 0.15456796559364003,
+        "rapid_switch_within_1_rate": 0.008843802835219143,
+        "rapid_switch_within_2_rate": 0.021199115619716477,
+        "rapid_switch_within_3_rate": 0.0357653791130186,
+        "recorded_continuation_regret": 1.0242974517939067,
+        "reversal_aba_rate": 0.0011705033164260631,
+        "rows": 7689,
+        "switch_count": 991,
+        "switch_rate": 0.1288854207309143,
+        "valid_proxy_rows": 7673
+      },
+      "memoryless_nearest": {
+        "proxy_top1_agreement": 0.17385637951257657,
+        "rapid_switch_within_1_rate": 0.06372740278319677,
+        "rapid_switch_within_2_rate": 0.10001300559240474,
+        "rapid_switch_within_3_rate": 0.1260241904018728,
+        "recorded_continuation_regret": 0.9741071600767495,
+        "reversal_aba_rate": 0.013525816100923398,
+        "rows": 7689,
+        "switch_count": 1824,
+        "switch_rate": 0.2372220054623488,
+        "valid_proxy_rows": 7673
+      },
+      "paired_uncertainty": {
+        "bank_clusters": 228,
+        "confidence_interval": "2.5/97.5 percentile",
+        "delta_direction": "frozen absolute hysteresis minus memoryless nearest",
+        "method": "paired bank-clustered bootstrap",
+        "metrics": {
+          "proxy_top1_agreement": {
+            "bootstrap_mean_delta": -0.019338237866464596,
+            "ci95_high": -0.0111379631285275,
+            "ci95_low": -0.027602835822748657,
+            "observed_delta": -0.019288413918936542
+          },
+          "recorded_continuation_regret": {
+            "bootstrap_mean_delta": 0.05012974181340478,
+            "ci95_high": 0.07190693670297318,
+            "ci95_low": 0.029672905379086362,
+            "observed_delta": 0.050190291717157276
+          },
+          "reversal_aba_rate": {
+            "bootstrap_mean_delta": -0.012411407774772548,
+            "ci95_high": -0.010091684534898709,
+            "ci95_low": -0.014867076622706935,
+            "observed_delta": -0.012355312784497335
+          },
+          "switch_rate": {
+            "bootstrap_mean_delta": -0.10861451126894456,
+            "ci95_high": -0.0992877924558332,
+            "ci95_low": -0.11816014670117211,
+            "observed_delta": -0.10833658473143451
+          }
+        },
+        "resamples": 2000,
+        "seed": 0,
+        "unit": "(episode, bank_origin)"
+      }
+    },
+    "phase0_rng": "torch",
+    "phase0_rng_semantics": "rollout-wide CPU torch.Generator manual_seed(0), one torch.randint per bank",
+    "selected_tau": 0.06851652264595032,
+    "status": "final_operating_point",
+    "sweep": {
+      "moderate_rule": {
+        "maximum_mean_regret": 0.8973636683130971,
+        "maximum_relative_regret_increase": 0.05,
+        "objective": "lowest switch rate among Pareto-efficient eligible points"
+      },
+      "pareto_curve": [
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.20019134178426215,
+          "rapid_switch_within_1_rate": 0.058009071377417044,
+          "rapid_switch_within_2_rate": 0.09787538792074481,
+          "rapid_switch_within_3_rate": 0.12508952017187874,
+          "recorded_continuation_regret": 0.8546320650600925,
+          "reversal_aba_rate": 0.00883265695870136,
+          "rows": 4189,
+          "switch_count": 989,
+          "switch_rate": 0.23609453330150393,
+          "threshold": 0.0,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.1934943793350873,
+          "rapid_switch_within_1_rate": 0.026736691334447362,
+          "rapid_switch_within_2_rate": 0.05681546908570064,
+          "rapid_switch_within_3_rate": 0.083552160420148,
+          "recorded_continuation_regret": 0.8553327939151663,
+          "reversal_aba_rate": 0.00644545237526856,
+          "rows": 4189,
+          "switch_count": 818,
+          "switch_rate": 0.19527333492480306,
+          "threshold": 0.00994759874466138,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.19469026548672566,
+          "rapid_switch_within_1_rate": 0.01742659345905944,
+          "rapid_switch_within_2_rate": 0.04249224158510384,
+          "rapid_switch_within_3_rate": 0.06445452375268561,
+          "recorded_continuation_regret": 0.8580765266704719,
+          "reversal_aba_rate": 0.0031033659584626403,
+          "rows": 4189,
+          "switch_count": 728,
+          "switch_rate": 0.17378849367390786,
+          "threshold": 0.02273736855922601,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.19373355656541497,
+          "rapid_switch_within_1_rate": 0.01742659345905944,
+          "rapid_switch_within_2_rate": 0.042014800668417285,
+          "rapid_switch_within_3_rate": 0.06373836237765576,
+          "recorded_continuation_regret": 0.859182603149373,
+          "reversal_aba_rate": 0.0031033659584626403,
+          "rows": 4189,
+          "switch_count": 727,
+          "switch_rate": 0.17354977321556458,
+          "threshold": 0.023447911326701824,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.19277684764410427,
+          "rapid_switch_within_1_rate": 0.0155168297923132,
+          "rapid_switch_within_2_rate": 0.03843399379326808,
+          "rapid_switch_within_3_rate": 0.061112437335879684,
+          "recorded_continuation_regret": 0.8599026335309322,
+          "reversal_aba_rate": 0.0026259250417760803,
+          "rows": 4189,
+          "switch_count": 710,
+          "switch_rate": 0.1694915254237288,
+          "threshold": 0.02557953962912926,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.19205931595312126,
+          "rapid_switch_within_1_rate": 0.015755550250656482,
+          "rapid_switch_within_2_rate": 0.037479111959894965,
+          "rapid_switch_within_3_rate": 0.06063499641919313,
+          "recorded_continuation_regret": 0.8620281432040483,
+          "reversal_aba_rate": 0.0028646455001193603,
+          "rows": 4189,
+          "switch_count": 703,
+          "switch_rate": 0.16782048221532586,
+          "threshold": 0.026290082396605075,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.19205931595312126,
+          "rapid_switch_within_1_rate": 0.015755550250656482,
+          "rapid_switch_within_2_rate": 0.0370016710432084,
+          "rapid_switch_within_3_rate": 0.060157555502506566,
+          "recorded_continuation_regret": 0.8625662834186413,
+          "reversal_aba_rate": 0.0028646455001193603,
+          "rows": 4189,
+          "switch_count": 697,
+          "switch_rate": 0.16638815946526617,
+          "threshold": 0.027000625164080888,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.18273140397034202,
+          "rapid_switch_within_1_rate": 0.00883265695870136,
+          "rapid_switch_within_2_rate": 0.022917164000954882,
+          "rapid_switch_within_3_rate": 0.039866316543327764,
+          "recorded_continuation_regret": 0.8949339451244703,
+          "reversal_aba_rate": 0.0021484841250895203,
+          "rows": 4189,
+          "switch_count": 566,
+          "switch_rate": 0.1351157794222965,
+          "threshold": 0.06851652264595032,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.17651279598182254,
+          "rapid_switch_within_1_rate": 0.00501312962520888,
+          "rapid_switch_within_2_rate": 0.011458582000477441,
+          "rapid_switch_within_3_rate": 0.02005251850083552,
+          "recorded_continuation_regret": 0.9170492288456725,
+          "reversal_aba_rate": 0.0014323227500596801,
+          "rows": 4189,
+          "switch_count": 425,
+          "switch_rate": 0.101456194795894,
+          "threshold": 0.12775003910064697,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.1671848839990433,
+          "rapid_switch_within_1_rate": 0.0016710432084029601,
+          "rapid_switch_within_2_rate": 0.004296968250179041,
+          "rapid_switch_within_3_rate": 0.00811649558367152,
+          "recorded_continuation_regret": 0.9516006687046152,
+          "reversal_aba_rate": 0.00047744091668656003,
+          "rows": 4189,
+          "switch_count": 296,
+          "switch_rate": 0.07066125566961089,
+          "threshold": 0.22482683658599795,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.1470939966515188,
+          "rapid_switch_within_1_rate": 0.0007161613750298401,
+          "rapid_switch_within_2_rate": 0.0021484841250895203,
+          "rapid_switch_within_3_rate": 0.00453568870852232,
+          "recorded_continuation_regret": 1.0047616219725857,
+          "reversal_aba_rate": 0.0,
+          "rows": 4189,
+          "switch_count": 212,
+          "switch_rate": 0.05060873716877536,
+          "threshold": 0.3477811157703412,
+          "valid_proxy_rows": 4181
+        },
+        {
+          "pareto": true,
+          "proxy_top1_agreement": 0.10930399425974648,
+          "rapid_switch_within_1_rate": 0.0,
+          "rapid_switch_within_2_rate": 0.00023872045834328001,
+          "rapid_switch_within_3_rate": 0.00047744091668656003,
+          "recorded_continuation_regret": 1.1794979555331415,
+          "reversal_aba_rate": 0.0,
+          "rows": 4189,
+          "switch_count": 94,
+          "switch_rate": 0.022439723084268323,
+          "threshold": 0.6336570048332195,
+          "valid_proxy_rows": 4181
+        }
+      ],
+      "thresholds": [
+        0.0,
+        0.0007105427674758128,
+        0.0014210855349516256,
+        0.0021316283024274386,
+        0.0028421710699032513,
+        0.003552713837379064,
+        0.004263256604854877,
+        0.00497379937233069,
+        0.0056843421398065025,
+        0.006394884907282315,
+        0.007105427674758128,
+        0.00781597044223394,
+        0.008526513209709754,
+        0.009237055977185566,
+        0.00994759874466138,
+        0.010658141512137191,
+        0.011368684279613005,
+        0.012079227047088819,
+        0.01278976981456463,
+        0.013500312582040444,
+        0.014210855349516256,
+        0.01492139811699207,
+        0.01563194088446788,
+        0.016342483651943695,
+        0.01705302641941951,
+        0.017763569186895322,
+        0.018474111954371132,
+        0.019184654721846946,
+        0.01989519748932276,
+        0.020605740256798573,
+        0.021316283024274383,
+        0.022026825791750197,
+        0.02273736855922601,
+        0.023447911326701824,
+        0.024158454094177637,
+        0.024868996861653447,
+        0.02557953962912926,
+        0.026290082396605075,
+        0.027000625164080888,
+        0.0277111679315567,
+        0.06851652264595032,
+        0.12775003910064697,
+        0.22482683658599795,
+        0.3477811157703412,
+        0.6336570048332195
+      ]
+    },
+    "verification": {
+      "absolute_difference": 0.0,
+      "classification": "exact",
+      "expected_tau": 0.06851652264595032,
+      "selector_decisions_identical": true
+    }
+  },
+  "schema_version": 3,
+  "selector": {
+    "incumbent_reset": "at every bank activation",
+    "phase_band": [
+      0,
+      34
+    ],
+    "rule": "switch iff d(incumbent) - d(nearest) > tau",
+    "runtime_phase_zero": "rollout-wide CPU torch.Generator seeded 0, one draw per bank",
+    "tie_handling": "argmin chooses the lowest candidate index"
+  },
+  "split": {
+    "calibration_episodes": [
+      17,
+      33,
+      38,
+      53,
+      61,
+      97,
+      106,
+      108
+    ],
+    "calibration_fraction": 0.3333333333333333,
+    "evaluation_episodes": [
+      5,
+      12,
+      27,
+      36,
+      45,
+      49,
+      51,
+      62,
+      64,
+      65,
+      74,
+      79,
+      96,
+      100,
+      101,
+      113
+    ],
+    "split_seed": 0
+  }
+}

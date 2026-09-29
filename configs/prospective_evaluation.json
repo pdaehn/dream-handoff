@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "artifact": {
+    "repo_id": "pdaehn/dreamhandoff-so101-prospective-evaluation",
+    "revision": "4ff19fae23719daa0899c04166cb4d445fde0261",
+    "capture_filename": "capture.npz",
+    "capture_sha256": "c2c709ca5fbbaa673d8c31d71683fb5b63756596083e2b5f3d00f61975170bba",
+    "dataset_path": "dataset",
+    "generated_banks_filename": "generated_banks.npz",
+    "generated_banks_sha256": "3ce2ab0c8eb39b9650de98f3377f1b676e5131205f808dca16490c73982f3258"
+  },
+  "calibration": {
+    "result": "results/hysteresis_calibration.json",
+    "publication_result_sha256": "65a37d3dd443ed927ba2764c4b44d508d244fa86feb4198366a148327ece7464",
+    "selected_tau": 0.06851652264595032,
+    "phase0_rng": "torch"
+  },
+  "controller": {
+    "selector": "absolute_hysteresis",
+    "hysteresis_tau": 0.06851652264595032,
+    "phase0_rng": "torch",
+    "phase0_seed": 0,
+    "num_candidates": 10,
+    "max_bank_age": 35,
+    "bank_refill_threshold": 15,
+    "guidance_horizon": 15,
+    "async_bank_guidance": "plain",
+    "compile_world_model_imagination": true
+  },
+  "protocol": {
+    "target_successful_recorded_episodes": 24,
+    "fps": 30,
+    "episode_time_s": 35,
+    "reset_time_s": 5,
+    "task": "Pick up the orange rectangle, align its two holes with the two pegs, and insert it onto the pegs.",
+    "technical_exclusions_only": [
+      "capture corruption",
+      "robot or camera failure",
+      "operator safety interruption",
+      "invalid reset or start state",
+      "software crash"
+    ]
+  },
+  "observation_rename_map": {
+    "observation.images.context": "observation.images.camera1",
+    "observation.images.wrist": "observation.images.camera2"
+  },
+  "camera_resolution": [
+    640,
+    480
+  ]
+}
